@@ -1,0 +1,23 @@
+.mytable{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+  }
+  .mytable thead tr{
+    background: cyan;
+    min-height: 30px;
+    font-size: 18px;
+  }
+  .mytable tr{
+    background: #fafafa;
+    border-bottom: 1px solid #ccc;
+  }
+  .my-icon{
+    font-size: 14px;
+    color: gray;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  
+  
