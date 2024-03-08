@@ -34,15 +34,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.restApi.getAttedanceData().subscribe((x) => {
       this.data = x;
+      this.sortArray(this.data)
 
       this.totalPages = Math.ceil(this.data?.length / this.itemsPerPage);
 
       if (this.data?.length > this.itemsPerPage) {
         this.displayData = this.data.slice(0, this.itemsPerPage);
-        console.log(this.data.slice(3, 3));
       }
     });
   }
+
 
   public ConvertImeStampToDate(timeStamp: any) {
     const timeObj = new Timestamp(timeStamp?._seconds, timeStamp?._nanoseconds);
@@ -102,6 +103,24 @@ export class AppComponent implements OnInit {
       this.displayData = this.data.slice(0, this.itemsPerPage);
       console.log(this.data.slice(3, 3));
     }
+  }
+
+  sortArray(unSortedData: any, field?:string): any {
+     unSortedData.sort((a: any, b:any) => this.compare(a,b));
+     return unSortedData;
+  }
+
+  compare( a:any, b:any , field?: string) {
+    field = field ? field : 'timeStamp';
+    
+    if(field === 'timeStamp') {
+
+      const atimeObj = new Timestamp(a?.timeStamp?._seconds, a?.timeStamp?._nanoseconds);
+      const btimeObj = new Timestamp(b?.timeStamp?._seconds, b?.timeStamp?._nanoseconds);
+      let bb=   btimeObj.toDate().getTime() - atimeObj.toDate().getTime();
+      return bb;
+    }
+    return a[field] - b[field];
   }
 
   title = 'raj-FE';
